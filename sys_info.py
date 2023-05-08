@@ -40,7 +40,7 @@ def draw_line_graph(values, width, height):
     return img
 
 
-def draw_stat(stat_func, label):
+def draw_stat(stat_func, label, unit="%"):
     """Draw a stat (CPU usage, RAM usage, temperature) on the OLED display."""
     values = []
     start_time = time.time()
@@ -55,7 +55,7 @@ def draw_stat(stat_func, label):
             font_label = ImageFont.truetype(FONT_PATH, FONT_SMALL_SIZE)
             label_width, _ = draw.textbbox((0, 0), label, font=font_label)[2:]
             draw.text((0, 50), label, font=font_label, fill=1)
-            draw.text((label_width + 1, 10), f"{value:.1f}%", font=font_percent, fill=1)
+            draw.text((label_width + 1, 10), f"{value:.1f}{unit}", font=font_percent, fill=1)
 
             if len(values) > 1:
                 # Draw line graph of values
@@ -86,8 +86,8 @@ def get_temperature():
 if __name__ == "__main__":
     try:
         while True:
-            draw_stat(get_cpu_percent, "CPU")
-            draw_stat(get_ram_percent, "RAM")
-            draw_stat(get_temperature, "TMP")
+            draw_stat(get_cpu_percent, "CPU", "%")
+            draw_stat(get_ram_percent, "RAM", "%")
+            draw_stat(get_temperature, "TMP", "C")
     except KeyboardInterrupt:
         pass
