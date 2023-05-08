@@ -79,9 +79,8 @@ def get_ram_percent():
 
 def get_temperature():
     """Get the CPU temperature in degrees Celsius."""
-    temps = psutil.sensors_temperatures().get('coretemp', [])
-    if temps:
-        return temps[0].current
+    temp = psutil.sensors_temperatures()['cpu_thermal'][0].current
+    return temp
 
 
 if __name__ == "__main__":
