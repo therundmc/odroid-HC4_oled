@@ -12,7 +12,9 @@ serial = i2c(port=0, address=0x3C)
 device = ssd1306(serial, rotate=2)
 
 
-FONT_PATH = "/usr/local/FreePixel.ttf"
+FONT_PATH = "/usr/local/scripts/FreePixel.ttf"
+FONT_BIG_SIZE = 40
+FONT_SMALL_SIZE = 14
 
 
 def draw_line_graph(values, width, height):
@@ -49,8 +51,8 @@ def draw_stat(stat_func, label):
             values.append(value)
 
         with canvas(device) as draw:
-            font_percent = ImageFont.truetype(FONT_PATH, 40)
-            font_label = ImageFont.truetype(FONT_PATH, 14)
+            font_percent = ImageFont.truetype(FONT_PATH, FONT_BIG_SIZE)
+            font_label = ImageFont.truetype(FONT_PATH, FONT_SMALL_SIZE)
             label_width, _ = draw.textbbox((0, 0), label, font=font_label)[2:]
             draw.text((0, 50), label, font=font_label, fill=1)
             draw.text((label_width + 1, 10), f"{value:.1f}%", font=font_percent, fill=1)
