@@ -27,19 +27,18 @@ To automatically start the script on system startup, you can create a `systemd` 
 2. Create a new service unit file with the following command:
 `sudo nano sys_info.service`
 
-3. Paste the following contents into the file:
-`[Unit]
-Description=System Information Service
+3. Paste the following contents into the file:<br/>
+[Unit]<br/>
+Description=System Information Service<br/>
+[Service]<br/>
+Type=simple<br/>
+ExecStart=/usr/bin/python3 /path/to/sys_info.py<br/>
+Restart=always<br/>
+User=root<br/>
+Group=root<br/>
+[Install]<br/>
+WantedBy=multi-user.target<br/>
 
-[Service]
-Type=simple
-ExecStart=/usr/bin/python3 /path/to/sys_info.py
-Restart=always
-User=root
-Group=root
-
-[Install]
-WantedBy=multi-user.target`
 Replace `/path/to/sys_info.py` with the actual path to the `sys_info.py` script.
 
 4. Save and close the file by pressing `Ctrl + X`, then `Y`, and then `Enter`.
